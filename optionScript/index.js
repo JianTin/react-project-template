@@ -18,8 +18,6 @@ const argvObj = argv.reduce((prev, item, index)=>{
 // 套娃 fn1(fn2(fn))
 const mergeMiddleware = [extensionMiddle, compatibleIeMiddle].reduceRight(
     (prev, item)=> item(prev), 
-    ()=>{
-        console.log('结束')
-    }
+    ()=>{} // 空函数，最后一步 要做什么
 )
 mergeMiddleware(argvObj)
