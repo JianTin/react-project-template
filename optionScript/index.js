@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 /**
  * 该文件 为 程序命令文件，将由 cli程序调用
  *  或者 执行 node optionScript/index.js extension bool
