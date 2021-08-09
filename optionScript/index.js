@@ -7,9 +7,10 @@
 */
 const extensionMiddle = require('./extensionMiddle')
 const compatibleIeMiddle = require('./ieMiddle')
+const mobileMiddle = require('./mobileMiddle')
 
 const argv = process.argv.slice(2)
-const keyArray = ['extension', 'IE']
+const keyArray = ['extension', 'IE', 'mobile']
 // 遍历成我需要的对象，方便内部中间件获取
 const argvObj = argv.reduce((prev, item, index)=>{
     const key = keyArray[index]
@@ -18,7 +19,7 @@ const argvObj = argv.reduce((prev, item, index)=>{
 }, {})
 
 // 套娃 fn1(fn2(fn))
-const mergeMiddleware = [extensionMiddle, compatibleIeMiddle].reduceRight(
+const mergeMiddleware = [extensionMiddle, compatibleIeMiddle, mobileMiddle].reduceRight(
     (prev, item)=> item(prev), 
     ()=>{} // 空函数，最后一步 要做什么
 )

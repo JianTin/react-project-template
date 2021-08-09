@@ -3,7 +3,11 @@ import {hot} from 'react-hot-loader/root'
 import './index.less'
 
 const App: FC = function(){
-    return <h1>typescript + js</h1>
+    return (
+        <div>
+            <h1>js</h1>
+        </div>
+    )
 }
 
 export default hot(App)
