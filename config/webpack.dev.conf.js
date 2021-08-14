@@ -1,4 +1,5 @@
 const {dir, join, distFolderName} = require('./paths')
+const {getDevPost} = require('./assets')
 const {merge} = require('webpack-merge')
 const baseConfig = require('./webpack.base.conf')
 const {HotModuleReplacementPlugin} = require('webpack')
@@ -9,7 +10,7 @@ module.exports = merge(baseConfig, {
         open: true,
         openPage: 'index.html',
         hot: true,
-        host: '0.0.0.0',
+        host: getDevPost(),
         port: 9000,
         proxy: {
             '/api': 'http://...'
