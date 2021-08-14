@@ -9,10 +9,10 @@ module.exports = merge(baseConfig, {
         open: true,
         openPage: 'index.html',
         hot: true,
-        host: 'localhost',
+        host: '0.0.0.0',
         port: 9000,
         proxy: {
-            '/api': 'http://localhost:4000'
+            '/api': 'http://...'
         },
         contentBase: join(dir, distFolderName),
         compress: true,
