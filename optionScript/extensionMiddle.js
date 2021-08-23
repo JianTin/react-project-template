@@ -5,8 +5,11 @@ const {getBaseConfig, changBaseConfig} = require('./assetEvent')
 
 const srcPath = join(dirFolder, '/src')
 const templatePaht = join(dirFolder, '/template')
+// ts 处理
 const tsConfigStorePath = join(templatePaht, '/tsconfig.json')
 const tsConfigRootPath = join(dirFolder, '/tsconfig.json')
+const typesEntry = join(templatePaht, '/typings')
+const typesOutput = join(dirFolder, '/typings')
 
 function changExtension(extension){
     let content = getBaseConfig()
@@ -18,6 +21,7 @@ function changExtension(extension){
 }
 
 // 复制源文件夹 -> 目标文件夹
+// 只复制一层
 function copyDir(src, target){
     // 判断 路径是否存在，不存在 创建 目录
     if(!existsSync(target)) mkdirSync(target)
@@ -58,6 +62,7 @@ module.exports = (next)=>(argv)=>{
     // 如果是ts 将模板文件夹内的 tsconfig.json 移动 至 根目录
     if(extension === 'ts'){
         copyFileSync(tsConfigStorePath, tsConfigRootPath)
+        copyDir(typesEntry, typesOutput)
     }
     next(argv)
 }

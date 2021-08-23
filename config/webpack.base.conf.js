@@ -1,8 +1,6 @@
 const {getCssLoader} = require('./assets')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const  CopyPlugin  =  require ( "copy-webpack-plugin" )
-const InlineChunkHtmlPlugin  = require('inline-chunk-html-plugin')
-const RemovePlugin = require('remove-files-webpack-plugin');
 const {join, dir, distFolderName, publicFolderName} = require('./paths')
 const  DuplicatePackageCheckerPlugin  =  require ( "duplicate-package-checker-webpack-plugin" ) ; 
 const {DefinePlugin, IgnorePlugin} = require('webpack')
@@ -90,22 +88,6 @@ module.exports = {
         new IgnorePlugin({
             resourceRegExp: /^\.\/locale$/,
             contextRegExp: /moment/,
-        }),
-        // 将 runtime 内置到 html
-        new InlineChunkHtmlPlugin(HtmlWebpackPlugin, [/runtime/]),
-        // 删除 runtime 文件
-        new RemovePlugin({
-            after: {
-                test: [
-                    {
-                        folder: './dist/js',
-                        method: (absoluteItemPath)=>{
-                            return new RegExp(/runtime/).test(absoluteItemPath)
-                        },
-                        recursive: true
-                    }
-                ]
-            }
         })
     ],
     optimization: {
