@@ -1,5 +1,8 @@
 const  MiniCssPlugin = require('mini-css-extract-plugin')
 const {networkInterfaces} = require('os')
+const {dir} = require('./paths')
+const {join} = require('path')
+const {existsSync} = require('fs')
 // 是否是 production
 function modeEnvIsPro(){
     return process.env.NODE_ENV === 'production'
@@ -35,4 +38,13 @@ exports.getDevPost = function(){
         }
     }
     return post
+}
+
+
+// env path
+exports.getEnvPath = function(){
+    const mode = process.env.NODE_ENV
+    const modeEnvPath = join(dir, `/.env.${mode}`)
+    const defaultEnvPath = join(dir, '/.env')
+    return existsSync(modeEnvPath) ? modeEnvPath : defaultEnvPath
 }

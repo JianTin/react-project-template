@@ -1,9 +1,10 @@
-const {getCssLoader} = require('./assets')
+const {getCssLoader, getEnvPath} = require('./assets')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const  CopyPlugin  =  require ( "copy-webpack-plugin" )
 const {join, dir, distFolderName, publicFolderName} = require('./paths')
 const  DuplicatePackageCheckerPlugin  =  require ( "duplicate-package-checker-webpack-plugin" ) ; 
-const {DefinePlugin, IgnorePlugin} = require('webpack')
+const {IgnorePlugin} = require('webpack')
+const dotenv = require('dotenv-webpack')
 
 // 配置
 module.exports = {
@@ -80,9 +81,9 @@ module.exports = {
         }),
         // 警告重复
         new DuplicatePackageCheckerPlugin(),
-        // 注入环境编码
-        new DefinePlugin({
-            NODE_ENV: JSON.stringify(process.env.NODE_ENV)
+        // 注入环境变量 .env
+        new dotenv({
+            path: getEnvPath()
         }),
         // 去除 moment 语言
         new IgnorePlugin({

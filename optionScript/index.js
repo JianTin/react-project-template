@@ -2,8 +2,8 @@
 
 /**
  * 该文件 为 程序命令文件，将由 cli程序调用
- *  或者 执行 node optionScript/index.js extension bool
- * 例 node optionScript/index.js ts false
+ *  或者 执行 node optionScript/index.js extension bool bool|number
+ * 例 node optionScript/index.js js false false
 */
 const extensionMiddle = require('./extensionMiddle')
 const compatibleIeMiddle = require('./ieMiddle')
