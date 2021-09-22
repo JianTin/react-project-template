@@ -4,6 +4,7 @@ const  CopyPlugin  =  require ( "copy-webpack-plugin" )
 const {join, dir, distFolderName, publicFolderName} = require('./paths')
 const  DuplicatePackageCheckerPlugin  =  require ( "duplicate-package-checker-webpack-plugin" ) ; 
 const {DefinePlugin, IgnorePlugin} = require('webpack')
+const tsconfigPathPlugin = require('tsconfig-paths-webpack-plugin')
 
 // 配置
 module.exports = {
@@ -27,7 +28,11 @@ module.exports = {
             '_src': join(dir, '/src'),
             'react-dom': '@hot-loader/react-dom'
         },
-        extensions: ['.js', '.jsx', '.ts', '.tsx']
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        // 获取 tsconfig.json baseUrl、paths 进行路径编译
+        plugins: [new tsconfigPathPlugin({
+            extensions: ['.ts', '.tsx', '.js', '.jsx']
+        })]
     },
     module: {
         rules: [
