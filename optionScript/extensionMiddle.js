@@ -1,7 +1,6 @@
 const {copyFileSync, rmSync, rmdirSync, readdirSync, mkdirSync, existsSync} = require('fs')
-const {join, dirname} = require('path')
-const dirFolder = dirname(__dirname) // 代表根目录
-const {getBaseConfig, changBaseConfig} = require('./assetEvent')
+const {join} = require('path')
+const {getContent, writeContent, dirFolder} = require('./assetEvent')
 
 const srcPath = join(dirFolder, '/src')
 const templatePaht = join(dirFolder, '/template')
@@ -11,13 +10,13 @@ const tsConfigRootPath = join(dirFolder, '/tsconfig.json')
 const typesEntry = join(templatePaht, '/typings')
 const typesOutput = join(dirFolder, '/typings')
 
+// 更改 extension 扩展名
 function changExtension(extension){
-    let content = getBaseConfig()
-    const reg = /main\.(js|ts)?/g
-    // 获取入口文件
-    let entryName = content.match(reg)[0]
-    entryName = entryName.replace(reg, `main.${extension}`)
-    changBaseConfig(content.replace(reg, entryName))
+    const assetsFile = join(dirFolder, '/config', '/assets.js')
+    const content = getContent(assetsFile)
+    const reg = /type(\s|\w|=|')+/
+    const newContent = content.replace(reg, `type = '${extension}'`)
+    writeContent(assetsFile, newContent)
 }
 
 // 复制源文件夹 -> 目标文件夹

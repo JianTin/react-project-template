@@ -1,17 +1,18 @@
-const {getCssLoader, getEnvPath} = require('./assets')
+const {getCssLoader, getEnvPath, type} = require('./assets')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const  CopyPlugin  =  require ( "copy-webpack-plugin" )
 const {join, dir, distFolderName, publicFolderName} = require('./paths')
 const  DuplicatePackageCheckerPlugin  =  require ( "duplicate-package-checker-webpack-plugin" ) ; 
 const {IgnorePlugin} = require('webpack')
 const dotenv = require('dotenv-webpack')
+const tsconfigPathPlugin = require('tsconfig-paths-webpack-plugin')
 
 // 配置
 module.exports = {
     target: 'web',
     entry: {
         main: {
-            import: join(dir, '/src', '/main.'),
+            import: join(dir, '/src', `/main.${type}`),
             dependOn: ['assetsReact']
         },
         'assetsReact': ['react', '@hot-loader/react-dom']
@@ -28,7 +29,13 @@ module.exports = {
             '_src': join(dir, '/src'),
             'react-dom': '@hot-loader/react-dom'
         },
-        extensions: ['.js', '.jsx', '.ts', '.tsx']
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        // 获取 tsconfig.json baseUrl、paths 进行路径编译
+        plugins: [
+            type === 'ts' ? new tsconfigPathPlugin({
+                extensions: ['.ts', '.tsx', '.js', '.jsx']
+            }) : null
+        ].filter(item => Boolean(item) !== false)
     },
     module: {
         rules: [
@@ -43,6 +50,10 @@ module.exports = {
                 generator: {
                     filename: 'assets/[hash][ext]'
                 }
+            },
+            {
+                test: /\.txt/,
+                type: 'asset/source'
             },
             {
                 test: /\.css/,

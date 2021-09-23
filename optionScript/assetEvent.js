@@ -20,5 +20,6 @@ module.exports = {
         writeContent(basePath, content)
     },
     getContent,
-    writeContent
+    writeContent,
+    dirFolder
 }

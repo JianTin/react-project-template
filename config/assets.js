@@ -3,6 +3,7 @@ const {networkInterfaces} = require('os')
 const {dir} = require('./paths')
 const {join} = require('path')
 const {existsSync} = require('fs')
+
 // 是否是 production
 function modeEnvIsPro(){
     return process.env.NODE_ENV === 'production'
@@ -40,7 +41,6 @@ exports.getDevPost = function(){
     return post
 }
 
-
 // env path
 exports.getEnvPath = function(){
     const mode = process.env.NODE_ENV
@@ -48,3 +48,5 @@ exports.getEnvPath = function(){
     const defaultEnvPath = join(dir, '/.env')
     return existsSync(modeEnvPath) ? modeEnvPath : defaultEnvPath
 }
+
+exports.type = 'js'
