@@ -1,8 +1,8 @@
 const  MiniCssPlugin = require('mini-css-extract-plugin')
 const {networkInterfaces} = require('os')
 const {dir} = require('./paths')
-const {join} = require('path')
-const {existsSync} = require('fs')
+const {join, resolve} = require('path')
+const {existsSync, readFileSync} = require('fs')
 
 // 是否是 production
 function modeEnvIsPro(){

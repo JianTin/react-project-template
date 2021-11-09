@@ -1,6 +1,6 @@
 const {getCssLoader, getEnvPath, type} = require('./assets')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const  CopyPlugin  =  require ( "copy-webpack-plugin" )
+const CopyPlugin =  require("copy-webpack-plugin")
 const {join, dir, distFolderName, publicFolderName} = require('./paths')
 const  DuplicatePackageCheckerPlugin  =  require ( "duplicate-package-checker-webpack-plugin" ) ; 
 const {IgnorePlugin} = require('webpack')
@@ -21,7 +21,7 @@ module.exports = {
         filename: 'js/[name].[contenthash].js',
         path: join(dir, distFolderName),
         chunkFilename: 'js/chunk/[name].[contenthash].js',
-        publicPath: '',
+        publicPath: '/',
         clean: true
     },
     resolve: {
@@ -35,7 +35,7 @@ module.exports = {
             type === 'ts' ? new tsconfigPathPlugin({
                 extensions: ['.ts', '.tsx', '.js', '.jsx']
             }) : null
-        ].filter(item => Boolean(item) !== false)
+        ].filter(item => Boolean(item))
     },
     module: {
         rules: [
