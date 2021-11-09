@@ -5,9 +5,7 @@
  *  或者 执行 node optionScript/index.js extension bool bool|number
  * 例 node optionScript/index.js js false false
 */
-const extensionMiddle = require('./extensionMiddle')
-const compatibleIeMiddle = require('./ieMiddle')
-const mobileMiddle = require('./mobileMiddle')
+const {extensionMiddle, ieModeMiddle, mobileMiddle} = require('./middleware')
 
 const argv = process.argv.slice(2)
 const keyArray = ['extension', 'IE', 'mobile']
@@ -19,7 +17,7 @@ const argvObj = argv.reduce((prev, item, index)=>{
 }, {})
 
 // 套娃 fn1(fn2(fn))
-const mergeMiddleware = [extensionMiddle, compatibleIeMiddle, mobileMiddle].reduceRight(
+const mergeMiddleware = [extensionMiddle, ieModeMiddle, mobileMiddle].reduceRight(
     (prev, item)=> item(prev), 
     ()=>{} // 空函数，最后一步 要做什么
 )

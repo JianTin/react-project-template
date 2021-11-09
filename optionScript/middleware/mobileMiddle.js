@@ -1,7 +1,8 @@
-const {getContent, writeContent} = require('./assetEvent')
-const {dirname, join} = require('path')
+// 添加 移动端适配
+const {getContent, writeContent, dirFolder} = require('../assetEvent')
+const {join} = require('path')
 
-const postCssPath = join(dirname(__dirname), '/postcss.config.js')
+const postCssPath = join(dirFolder, '/postcss.config.js')
 const pluginReg = /\[(\w|\W)*\]/g
 
 module.exports = (next)=>(state)=>{

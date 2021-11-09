@@ -1,4 +1,5 @@
-const {getBaseConfig, changBaseConfig} = require('./assetEvent')
+// 添加 babel-polyfill
+const {getBaseConfig, changBaseConfig} = require('../assetEvent')
 
 module.exports = (next)=>(argv)=>{
     const {IE: bool} = argv

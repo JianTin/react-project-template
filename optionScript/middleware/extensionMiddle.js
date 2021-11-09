@@ -1,6 +1,7 @@
+// 移动开发文件夹 和 修改 webpack.entry 入口
 const {copyFileSync, rmSync, rmdirSync, readdirSync, mkdirSync, existsSync} = require('fs')
 const {join} = require('path')
-const {getContent, writeContent, dirFolder} = require('./assetEvent')
+const {getContent, writeContent, dirFolder} = require('../assetEvent')
 
 const srcPath = join(dirFolder, '/src')
 const templatePaht = join(dirFolder, '/template')
