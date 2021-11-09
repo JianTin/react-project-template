@@ -6,6 +6,7 @@
  * 例 node optionScript/index.js js false false
 */
 const {extensionMiddle, ieModeMiddle, mobileMiddle} = require('./middleware')
+const cleanFn = require('./cleanInitFloder')
 
 const argv = process.argv.slice(2)
 const keyArray = ['extension', 'IE', 'mobile']
@@ -19,6 +20,6 @@ const argvObj = argv.reduce((prev, item, index)=>{
 // 套娃 fn1(fn2(fn))
 const mergeMiddleware = [extensionMiddle, ieModeMiddle, mobileMiddle].reduceRight(
     (prev, item)=> item(prev), 
-    ()=>{} // 空函数，最后一步 要做什么
+    cleanFn
 )
 mergeMiddleware(argvObj)

@@ -8,7 +8,9 @@ const pluginReg = /\[(\w|\W)*\]/g
 module.exports = (next)=>(state)=>{
     const {mobile} = state
     const content = getContent(postCssPath)
-    if(mobile === 'false' || content.includes('postcss-px-to-viewport')) return
+    if(mobile === 'false'){
+        return next(state)
+    }
     // [config]
     const pluginConfigString = content.match(pluginReg)[0]
     // [mobile-plugin+config]
@@ -21,6 +23,6 @@ module.exports = (next)=>(state)=>{
     // 查找替换
     mobileContent = content.replace(pluginReg, mobileContent)
     // 添加
-    writeContent(postCssPath, mobileContent)  
+    writeContent(postCssPath, mobileContent)
     next(state)
 }
