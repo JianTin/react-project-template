@@ -6,6 +6,7 @@ const {HotModuleReplacementPlugin} = require('webpack')
 
 module.exports = merge(baseConfig, {
     mode: 'development',
+    devtool: "eval-source-map",
     devServer: {
         open: true,
         openPage: 'index.html',
